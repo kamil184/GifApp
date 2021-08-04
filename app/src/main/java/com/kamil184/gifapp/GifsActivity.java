@@ -1,9 +1,9 @@
 package com.kamil184.gifapp;
 
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.Menu;
 import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class GifsActivity extends AppCompatActivity {
 
     ArrayList<Gif> gifs = new ArrayList<Gif>();
     private Toolbar toolbar;
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView = (RecyclerView) findViewById(R.id.gifs);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(gifs);
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.liked_menu, menu);
+        getMenuInflater().inflate(R.menu.gifs_menu, menu);
         return true;
     }
 
@@ -75,15 +76,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
-            case  R.id.menu_gif:
-                Intent intent = new Intent(this, GifsActivity.class);
-                startActivity(intent);
-                return true;
             case  R.id.menu_refresh:
 
                 return true;
-
+            case android.R.id.home:
+                finish();
+                return true;
         }
+
         return true;
     }
 }
