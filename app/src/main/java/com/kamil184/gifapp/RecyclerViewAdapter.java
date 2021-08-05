@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import com.google.android.material.imageview.ShapeableImageView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,7 +45,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        final ImageView gifView;
+        final ShapeableImageView gifView;
         final ImageButton likedView;
 
         private View view;
@@ -52,7 +53,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ViewHolder(View view) {
             super(view);
             this.view = view;
-            gifView = (ImageView) view.findViewById(R.id.gif);
+            gifView = (ShapeableImageView) view.findViewById(R.id.gif);
             likedView = (ImageButton) view.findViewById(R.id.liked);
             likedView.setOnClickListener(button -> {
                 likedView.setSelected(!likedView.isSelected());
@@ -74,7 +75,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             int placeholderWidth = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpPlaceholderWidth, displayMetrics));
             int placeholderHeight = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpPlaceholderHeight, displayMetrics));
 
-            Glide.with(view.getContext()).asGif().placeholder(new SizableColorDrawable(placeholderWidth, placeholderHeight)).load(url).into(gifView);
+            Glide.with(view.getContext())
+                    .asGif()
+                    .placeholder(new SizableColorDrawable(Color.GRAY, placeholderWidth, placeholderHeight))
+                    .error(new SizableColorDrawable(Color.RED, placeholderWidth, placeholderHeight))
+                    .load(url)
+                    .into(gifView);
         }
     }
 }

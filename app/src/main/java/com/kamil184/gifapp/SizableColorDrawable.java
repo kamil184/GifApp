@@ -15,13 +15,6 @@ public class SizableColorDrawable extends ColorDrawable {
         mHeight = height;
     }
 
-    public SizableColorDrawable(int width, int height) {
-        super(Color.GRAY);
-
-        mWidth = width;
-        mHeight = height;
-    }
-
     @Override public int getIntrinsicWidth() {
         return mWidth;
     }
